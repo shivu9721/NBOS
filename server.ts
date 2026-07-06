@@ -14,7 +14,10 @@ import {
   LeaveRequest, 
   Product, 
   PurchaseOrder, 
-  AIUsageLog 
+  AIUsageLog,
+  ITService,
+  CalendarEvent,
+  SharedFile
 } from "./src/types";
 
 // Load environment variables
@@ -72,6 +75,10 @@ interface DatabaseState {
   products: Product[];
   purchaseOrders: PurchaseOrder[];
   aiLogs: AIUsageLog[];
+  itServices: ITService[];
+  calendarEvents: CalendarEvent[];
+  files: SharedFile[];
+  loginHistory?: any[];
 }
 
 const INITIAL_STATE: DatabaseState = {
@@ -97,6 +104,11 @@ const INITIAL_STATE: DatabaseState = {
       admin: true
     }
   },
+  loginHistory: [
+    { id: "log_auth_01", timestamp: "2026-07-05T22:15:30Z", user: "Marcus Aurelius", role: "Super Admin", ipAddress: "198.51.100.42", device: "Chrome 126 on macOS (Silicon)", status: "Success", tfaEnabled: true },
+    { id: "log_auth_02", timestamp: "2026-07-05T18:42:11Z", user: "Hypatia", role: "HR Manager", ipAddress: "203.0.113.195", device: "Safari on iPad Pro", status: "Success", tfaEnabled: true },
+    { id: "log_auth_03", timestamp: "2026-07-05T14:10:02Z", user: "Kore Lovelace", role: "Developer", ipAddress: "192.0.2.1", device: "Firefox Developer Edition on Linux", status: "Success", tfaEnabled: false }
+  ],
   leads: [
     {
       id: "lead_01",
@@ -185,19 +197,19 @@ const INITIAL_STATE: DatabaseState = {
     }
   ],
   accounts: [
-    { code: "1010", name: "Operating Bank Account", type: "Asset", currency: "USD", balance: 1420500, isActive: true },
-    { code: "1020", name: "Accounts Receivable", type: "Asset", currency: "USD", balance: 345000, isActive: true },
-    { code: "1200", name: "Warehouse Inventory Value", type: "Asset", currency: "USD", balance: 520000, isActive: true },
-    { code: "1300", name: "Office Assets & Computers", type: "Asset", currency: "USD", balance: 85000, isActive: true },
-    { code: "2010", name: "Accounts Payable", type: "Liability", currency: "USD", balance: 180000, isActive: true },
-    { code: "2050", name: "VAT Liability Collected", type: "Liability", currency: "USD", balance: 45200, isActive: true },
-    { code: "3010", name: "Share Capital Equity", type: "Equity", currency: "USD", balance: 1000000, isActive: true },
-    { code: "3050", name: "Retained Earnings", type: "Equity", currency: "USD", balance: 500000, isActive: true },
-    { code: "4010", name: "Software Subscription Revenue", type: "Income", currency: "USD", balance: 820000, isActive: true },
-    { code: "4020", name: "AI Consulting Services", type: "Income", currency: "USD", balance: 240000, isActive: true },
-    { code: "5010", name: "Employee Salaries & Payroll", type: "Expense", currency: "USD", balance: 310000, isActive: true },
-    { code: "5020", name: "Cloud Server Hosting (SaaS Costs)", type: "Expense", currency: "USD", balance: 95000, isActive: true },
-    { code: "5030", name: "Office Rent & Utilities", type: "Expense", currency: "USD", balance: 19700, isActive: true }
+    { code: "1010", name: "Operating Bank Account", type: "Asset", currency: "INR", balance: 113640000, isActive: true },
+    { code: "1020", name: "Accounts Receivable", type: "Asset", currency: "INR", balance: 27600000, isActive: true },
+    { code: "1200", name: "Warehouse Inventory Value", type: "Asset", currency: "INR", balance: 41600000, isActive: true },
+    { code: "1300", name: "Office Assets & Computers", type: "Asset", currency: "INR", balance: 6800000, isActive: true },
+    { code: "2010", name: "Accounts Payable", type: "Liability", currency: "INR", balance: 14400000, isActive: true },
+    { code: "2050", name: "VAT Liability Collected", type: "Liability", currency: "INR", balance: 3616000, isActive: true },
+    { code: "3010", name: "Share Capital Equity", type: "Equity", currency: "INR", balance: 80000000, isActive: true },
+    { code: "3050", name: "Retained Earnings", type: "Equity", currency: "INR", balance: 40000000, isActive: true },
+    { code: "4010", name: "Software Subscription Revenue", type: "Income", currency: "INR", balance: 65600000, isActive: true },
+    { code: "4020", name: "AI Consulting Services", type: "Income", currency: "INR", balance: 19200000, isActive: true },
+    { code: "5010", name: "Employee Salaries & Payroll", type: "Expense", currency: "INR", balance: 24800000, isActive: true },
+    { code: "5020", name: "Cloud Server Hosting (SaaS Costs)", type: "Expense", currency: "INR", balance: 7600000, isActive: true },
+    { code: "5030", name: "Office Rent & Utilities", type: "Expense", currency: "INR", balance: 1576000, isActive: true }
   ],
   journals: [
     {
@@ -449,6 +461,26 @@ const INITIAL_STATE: DatabaseState = {
   aiLogs: [
     { id: "log_01", timestamp: "2026-07-02T00:15:30Z", module: "CRM Sales Assistant", promptName: "Lead History Analyzer", model: "gemini-3.5-flash", tokensUsed: 1240, latencyMs: 640, costEstimate: 0.000372 },
     { id: "log_02", timestamp: "2026-07-02T01:02:11Z", module: "Project Manager Bot", promptName: "Sprint Risk Prediction", model: "gemini-3.5-flash", tokensUsed: 2450, latencyMs: 1120, costEstimate: 0.000735 }
+  ],
+  itServices: [
+    { id: "its_01", name: "Cloud Server Migration", price: 150000, gstRate: 18, description: "Secure high-performance multi-tenant AWS/GCP cloud environments migration." },
+    { id: "its_02", name: "Cyber Security Audit", price: 85000, gstRate: 18, description: "Penetration testing, encryption hardening and regulatory IT auditing." },
+    { id: "its_03", name: "ERP Implementation Suite", price: 250000, gstRate: 18, description: "Deploy bespoke double-entry ledgers, payroll and HR control boards." },
+    { id: "its_04", name: "AI Co-pilot Custom Integration", price: 420000, gstRate: 18, description: "Design private vector pipelines, neural caching, and Gemini strategic advisors." }
+  ],
+  calendarEvents: [
+    { id: "cale_01", title: "Project Review: Acme Auth SAML Check", type: "meeting", date: "2026-07-08", time: "11:00 AM", description: "Review progress on SAML integration checklist with engineering lead.", attendees: ["Marcus Aurelius", "Kore Lovelace"] },
+    { id: "cale_02", title: "On-site Client Visit: Sarah Connor (Acme)", type: "client-visit", date: "2026-07-10", time: "02:00 PM", description: "In-person visit from Acme VP Sarah Connor to discuss SLA budget extension.", attendees: ["Marcus Aurelius", "Sarah Connor"] },
+    { id: "cale_03", title: "Follow-up: Apex Retainer Contract Details", type: "follow-up", date: "2026-07-09", time: "10:00 AM", description: "Call Bruce Wayne to finalize pricing discount margins.", attendees: ["Marcus Aurelius", "Bruce Wayne"] },
+    { id: "cale_04", title: "Approved Sick Leave: Kore Lovelace", type: "leave", date: "2026-07-07", time: "All Day", description: "Recovering from wisdom teeth extraction.", attendees: ["Kore Lovelace"] },
+    { id: "cale_05", title: "HR Sync: Quarterly Employee Performance Review", type: "meeting", date: "2026-07-12", time: "04:30 PM", description: "HR review with architect Hypatia.", attendees: ["Marcus Aurelius", "Hypatia of Alexandria"] }
+  ],
+  files: [
+    { id: "fil_01", name: "Corporate Compliance Vault", type: "folder", parentId: null, size: "-", createdAt: "2026-06-10", createdBy: "Marcus Aurelius", permission: "approved-only", approvedRoles: ["Super Admin", "Super Admin (CEO)", "Corporate Controller", "HR Manager"] },
+    { id: "fil_02", name: "ISO-27001-SAML-Report.pdf", type: "file", parentId: "fil_01", size: "2.4 MB", createdAt: "2026-06-12", createdBy: "Hypatia of Alexandria", permission: "approved-only", approvedRoles: ["Super Admin", "Super Admin (CEO)", "Corporate Controller"] },
+    { id: "fil_03", name: "SLA Proposals", type: "folder", parentId: null, size: "-", createdAt: "2026-06-18", createdBy: "Lucius Seneca", permission: "everyone", approvedRoles: [] },
+    { id: "fil_04", name: "Acme-SaaS-Subscription-Proposal.docx", type: "file", parentId: "fil_03", size: "1.2 MB", createdAt: "2026-06-19", createdBy: "Lucius Seneca", permission: "everyone", approvedRoles: [] },
+    { id: "fil_05", name: "NeuNet-Services-Brochure-INR.pdf", type: "file", parentId: null, size: "4.8 MB", createdAt: "2026-07-02", createdBy: "Marcus Aurelius", permission: "everyone", approvedRoles: [] }
   ]
 };
 
@@ -616,12 +648,70 @@ app.post("/api/state/po", (req, res) => {
   res.json({ success: true, purchaseOrder: po });
 });
 
+// Mutate IT Services Catalog
+app.post("/api/state/it-services", (req, res) => {
+  const service = req.body;
+  if (!service.id) {
+    service.id = "its_" + Math.random().toString(36).substring(2, 9);
+    dbState.itServices.push(service);
+  } else {
+    const idx = dbState.itServices.findIndex(s => s.id === service.id);
+    if (idx !== -1) {
+      dbState.itServices[idx] = service;
+    }
+  }
+  res.json({ success: true, service });
+});
+
+// Mutate Shared Calendar
+app.post("/api/state/calendar", (req, res) => {
+  const event = req.body;
+  if (!event.id) {
+    event.id = "cale_" + Math.random().toString(36).substring(2, 9);
+    dbState.calendarEvents.push(event);
+  } else {
+    const idx = dbState.calendarEvents.findIndex(e => e.id === event.id);
+    if (idx !== -1) {
+      dbState.calendarEvents[idx] = event;
+    }
+  }
+  res.json({ success: true, event });
+});
+
+// Mutate Shared File Vault
+app.post("/api/state/files", (req, res) => {
+  const file = req.body;
+  if (!file.id) {
+    file.id = "fil_" + Math.random().toString(36).substring(2, 9);
+    file.createdAt = new Date().toISOString().split('T')[0];
+    dbState.files.push(file);
+  } else {
+    const idx = dbState.files.findIndex(f => f.id === file.id);
+    if (idx !== -1) {
+      dbState.files[idx] = file;
+    }
+  }
+  res.json({ success: true, file });
+});
+
 // Update Organization Brand Settings
 app.post("/api/state/branding", (req, res) => {
   const { name, brandColors } = req.body;
   if (name) dbState.organization.name = name;
   if (brandColors) dbState.organization.brandColors = brandColors;
   res.json({ success: true, organization: dbState.organization });
+});
+
+// Post Login History Log
+app.post("/api/state/login-history", (req, res) => {
+  const log = req.body;
+  log.id = "log_auth_" + Math.random().toString(36).substring(2, 9);
+  log.timestamp = new Date().toISOString();
+  if (!dbState.loginHistory) {
+    dbState.loginHistory = [];
+  }
+  dbState.loginHistory.unshift(log);
+  res.json({ success: true, log });
 });
 
 

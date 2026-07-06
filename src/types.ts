@@ -100,7 +100,12 @@ export interface Invoice {
   discount: number;
   total: number;
   status: 'Draft' | 'Unpaid' | 'Paid' | 'Overdue';
-  items: { description: string; quantity: number; unitPrice: number }[];
+  items: { description: string; quantity: number; unitPrice: number; gstAmount?: number }[];
+  documentType?: 'Invoice' | 'Quotation' | 'Proposal' | 'Bill';
+  gstType?: 'CGST+SGST' | 'IGST';
+  cgst?: number;
+  sgst?: number;
+  igst?: number;
 }
 
 // ================= PMS (PROJECT MANAGEMENT) TYPES =================
@@ -230,4 +235,37 @@ export interface AIUsageLog {
   tokensUsed: number;
   latencyMs: number;
   costEstimate: number; // USD
+}
+
+// ================= IT SERVICES & CUSTOMER DOCUMENTS =================
+export interface ITService {
+  id: string;
+  name: string;
+  price: number;
+  gstRate: number; // percentage, e.g. 18
+  description: string;
+}
+
+// ================= SHARED CALENDAR TYPES =================
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  type: 'meeting' | 'client-visit' | 'leave' | 'follow-up' | 'other';
+  date: string; // YYYY-MM-DD
+  time: string;
+  description: string;
+  attendees: string[];
+}
+
+// ================= FILE SHARING & SECURITY MODULE =================
+export interface SharedFile {
+  id: string;
+  name: string;
+  type: 'file' | 'folder';
+  parentId: string | null;
+  size: string;
+  createdAt: string;
+  createdBy: string;
+  permission: 'everyone' | 'approved-only';
+  approvedRoles: string[]; // e.g. ['Super Admin', 'Accounts Manager', 'HR Manager', 'Developer']
 }

@@ -278,6 +278,63 @@ export default function SaaSAdmin({ state, onRefresh, brandColor }: SaaSAdminPro
           </div>
         </div>
       </div>
+
+      {/* Security Logs & Access Audit */}
+      <div className="bg-white border border-slate-100 rounded-xl p-5 mt-6 shadow-xs">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="h-4.5 w-4.5 text-emerald-600" />
+            <h3 className="font-bold text-sm text-slate-800">Security & Authentication Audit Records</h3>
+          </div>
+          <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 bg-slate-100 px-2 py-0.5 rounded">
+            Role-Based Compliance: Active
+          </span>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-100 font-mono uppercase text-[10px] tracking-wider text-slate-400 bg-slate-50/30">
+                <th className="p-3">Timestamp (UTC)</th>
+                <th className="p-3">Staff / Account Name</th>
+                <th className="p-3">Access Role</th>
+                <th className="p-3">Secure IP Address</th>
+                <th className="p-3">Terminal Browser Agent</th>
+                <th className="p-3 text-right">Login Result</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {state.loginHistory?.map((log: any) => (
+                <tr key={log.id} className="hover:bg-slate-50/50 transition-colors">
+                  <td className="p-3 font-mono text-[10px] text-slate-500">
+                    {new Date(log.timestamp).toLocaleString()}
+                  </td>
+                  <td className="p-3 font-bold text-slate-800">{log.user}</td>
+                  <td className="p-3">
+                    <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 border border-indigo-100 text-indigo-700">
+                      {log.role}
+                    </span>
+                  </td>
+                  <td className="p-3 font-mono text-slate-500">{log.ipAddress}</td>
+                  <td className="p-3 text-slate-500 truncate max-w-[200px]" title={log.device}>
+                    {log.device}
+                  </td>
+                  <td className="p-3 text-right">
+                    <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
+                      log.status === "Success"
+                        ? "bg-emerald-50 border-emerald-100 text-emerald-700"
+                        : log.status === "2FA_Pending"
+                        ? "bg-amber-50 border-amber-100 text-amber-700"
+                        : "bg-rose-50 border-rose-100 text-rose-700"
+                    }`}>
+                      {log.status === "Success" ? "✓ Authorized" : log.status === "2FA_Pending" ? "OTP Pending" : "✗ Locked / Blocked"}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

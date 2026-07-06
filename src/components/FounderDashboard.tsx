@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   TrendingUp, 
   TrendingDown, 
-  DollarSign, 
+  IndianRupee, 
   Users, 
   Activity, 
   ShieldCheck, 
@@ -70,77 +70,79 @@ export default function FounderDashboard({ state, onRefresh, brandColor }: Found
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
-      <div className="bg-white rounded-xl border border-slate-100 p-6 shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <span className="text-xs font-mono text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">
+      <div className="bg-white rounded-xl border border-slate-100 p-6 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative overflow-hidden">
+        {/* Subtle decorative background gradient */}
+        <div className="absolute right-0 top-0 w-64 h-full bg-gradient-to-l from-[#00D8F6]/10 to-transparent pointer-events-none" />
+        <div className="relative z-10">
+          <span className="text-[10px] font-mono text-[#0052FF] bg-[#0052FF]/10 px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">
             {organization.subscriptionPlan} Plan Active
           </span>
-          <h1 className="text-2xl font-sans font-bold tracking-tight text-slate-900 mt-2">
+          <h1 className="text-2xl font-sans font-extrabold tracking-tight text-[#04153F] mt-2">
             Founder & Executive Cockpit
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            Real-time cross-tenant operations and financial intelligence for <strong className="text-slate-800">{organization.name}</strong>.
+          <p className="text-xs text-slate-500 mt-1">
+            Real-time operations, analytics & intelligence aligned with <strong className="text-[#0052FF]">UP arrow</strong> design directives.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative z-10">
           <button 
             onClick={onRefresh}
-            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-indigo-600 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-white bg-gradient-to-r from-[#0052FF] to-[#0B66FF] hover:from-[#0052FF] hover:to-[#00D8F6] rounded-lg transition-all duration-300 shadow-sm cursor-pointer"
           >
-            <RefreshCw className="h-3.5 w-3.5" />
+            <RefreshCw className="h-3.5 w-3.5 animate-spin-slow" />
             Sync Ledger State
           </button>
         </div>
       </div>
 
-      {/* Grid of 4 Key Metrics */}
+      {/* Grid of 4 Key Metrics with colorful accents & brand themes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Metric 1 */}
-        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs relative overflow-hidden group">
+        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs relative overflow-hidden group brand-card-glow">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-xs font-mono uppercase tracking-wider text-slate-400">Total Liquid Cash</p>
-              <h3 className="text-2xl font-bold font-mono text-slate-900 mt-1">
-                ${totalBankBalance.toLocaleString()}
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Total Liquid Cash</p>
+              <h3 className="text-2xl font-bold font-mono text-[#04153F] mt-1 flex items-center">
+                <IndianRupee className="h-5 w-5 mr-0.5 text-[#0052FF] shrink-0" />{totalBankBalance.toLocaleString('en-IN')}
               </h3>
             </div>
-            <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600">
-              <DollarSign className="h-5 w-5" />
+            <div className="p-2 bg-[#0052FF]/10 rounded-lg text-[#0052FF]">
+              <IndianRupee className="h-5 w-5" />
             </div>
           </div>
-          <div className="flex items-center gap-1.5 mt-4 text-xs text-emerald-600 font-medium">
+          <div className="flex items-center gap-1.5 mt-4 text-xs text-emerald-600 font-bold">
             <TrendingUp className="h-3.5 w-3.5" />
             <span>+12.4% vs last Q</span>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-indigo-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0052FF] to-[#00D8F6] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
         </div>
 
         {/* Metric 2 */}
-        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs relative overflow-hidden group">
+        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs relative overflow-hidden group brand-card-glow">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-xs font-mono uppercase tracking-wider text-slate-400">Sales Pipeline Velocity</p>
-              <h3 className="text-2xl font-bold font-mono text-slate-900 mt-1">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Sales Velocity</p>
+              <h3 className="text-2xl font-bold font-mono text-[#04153F] mt-1">
                 {activeLeadsCount} Leads
               </h3>
             </div>
-            <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
+            <div className="p-2 bg-[#00D8F6]/10 rounded-lg text-[#0052FF]">
               <Users className="h-5 w-5" />
             </div>
           </div>
-          <div className="flex items-center gap-1.5 mt-4 text-xs text-indigo-600 font-medium">
+          <div className="flex items-center gap-1.5 mt-4 text-xs text-[#0052FF] font-bold">
             <Info className="h-3.5 w-3.5" />
-            <span>{highPriorityLeadsCount} designated high-priority</span>
+            <span>{highPriorityLeadsCount} high-priority records</span>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00D8F6] to-[#0B66FF] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
         </div>
 
         {/* Metric 3 */}
-        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs relative overflow-hidden group">
+        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs relative overflow-hidden group brand-card-glow">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-xs font-mono uppercase tracking-wider text-slate-400">Project Operations</p>
-              <h3 className="text-2xl font-bold font-mono text-slate-900 mt-1">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Project Operations</p>
+              <h3 className="text-2xl font-bold font-mono text-[#04153F] mt-1">
                 {activeProjectsCount} Active
               </h3>
             </div>
@@ -148,19 +150,19 @@ export default function FounderDashboard({ state, onRefresh, brandColor }: Found
               <Activity className="h-5 w-5" />
             </div>
           </div>
-          <div className="flex items-center gap-1.5 mt-4 text-xs text-amber-600 font-medium">
+          <div className="flex items-center gap-1.5 mt-4 text-xs text-amber-600 font-bold">
             <TrendingDown className="h-3.5 w-3.5" />
-            <span>{delayedProjectsCount} critical-path delay risk</span>
+            <span>{delayedProjectsCount} priority delay risk</span>
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-amber-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
         </div>
 
         {/* Metric 4 */}
-        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs relative overflow-hidden group">
+        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs relative overflow-hidden group brand-card-glow">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-xs font-mono uppercase tracking-wider text-slate-400">NeuNet AI Gateway</p>
-              <h3 className="text-2xl font-bold font-mono text-slate-900 mt-1">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">AI Intelligence Core</p>
+              <h3 className="text-2xl font-bold font-mono text-[#04153F] mt-1">
                 {(totalAiTokens / 1000).toFixed(1)}k Token
               </h3>
             </div>
@@ -169,8 +171,8 @@ export default function FounderDashboard({ state, onRefresh, brandColor }: Found
             </div>
           </div>
           <div className="flex items-center gap-1.5 mt-4 text-xs text-slate-500">
-            <span>Spend:</span>
-            <span className="font-mono text-slate-800 font-semibold">${totalAiCost.toFixed(4)} USD</span>
+            <span>Spend Estimate:</span>
+            <span className="font-mono text-[#04153F] font-bold">₹{(totalAiCost * 80).toFixed(2)} INR</span>
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-rose-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
         </div>
@@ -180,73 +182,66 @@ export default function FounderDashboard({ state, onRefresh, brandColor }: Found
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Core Financial Trends (Chart block - 2/3 width) */}
         <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xs lg:col-span-2">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 mb-4 gap-2">
             <div>
-              <h4 className="text-sm font-bold text-slate-800">Monthly Operating Flow</h4>
+              <h4 className="text-sm font-bold text-[#04153F]">Monthly Operating Flow</h4>
               <p className="text-xs text-slate-400">Simulated 6-Month Ledger Revenue vs Cloud Expenses</p>
             </div>
-            <div className="flex gap-4 text-xs font-mono">
+            <div className="flex gap-4 text-[10px] font-mono">
               <div className="flex items-center gap-1.5">
-                <span className="inline-block w-2.5 h-2.5 bg-indigo-500 rounded-sm" />
-                <span className="text-slate-600">SaaS Subs ($820k)</span>
+                <span className="inline-block w-3 h-3 bg-[#0052FF] rounded-sm" />
+                <span className="text-slate-600 font-bold">Revenue (₹6.5Cr)</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="inline-block w-2.5 h-2.5 bg-amber-500 rounded-sm" />
-                <span className="text-slate-600">Cloud Costs ($95k)</span>
+                <span className="inline-block w-3 h-3 bg-[#00D8F6] rounded-sm" />
+                <span className="text-slate-600 font-bold">Expenses (₹76L)</span>
               </div>
             </div>
           </div>
 
-          {/* SVG Custom High fidelity Chart */}
+          {/* SVG Custom High fidelity Chart - Rich Colorful Brand Styling */}
           <div className="relative h-60 w-full mt-2">
             <svg viewBox="0 0 600 240" className="w-full h-full overflow-visible">
               {/* Grid Lines */}
               <line x1="40" y1="20" x2="580" y2="20" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3" />
               <line x1="40" y1="80" x2="580" y2="80" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3" />
               <line x1="40" y1="140" x2="580" y2="140" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3" />
-              <line x1="40" y1="200" x2="580" y2="200" stroke="#cbd5e1" strokeWidth="1" />
+              <line x1="40" y1="200" x2="580" y2="200" stroke="#e2e8f0" strokeWidth="1" />
 
               {/* Chart Coordinates (X-Axis: Jan-Jun) */}
-              <text x="45" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace">JAN</text>
-              <text x="145" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace">FEB</text>
-              <text x="245" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace">MAR</text>
-              <text x="345" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace">APR</text>
-              <text x="445" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace">MAY</text>
-              <text x="545" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace">JUN</text>
+              <text x="45" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace" fontWeight="bold">JAN</text>
+              <text x="145" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace" fontWeight="bold">FEB</text>
+              <text x="245" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace" fontWeight="bold">MAR</text>
+              <text x="345" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace" fontWeight="bold">APR</text>
+              <text x="445" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace" fontWeight="bold">MAY</text>
+              <text x="545" y="218" fill="#94a3b8" fontSize="10" fontFamily="monospace" fontWeight="bold">JUN</text>
 
               {/* Y-Axis labels */}
-              <text x="30" y="24" fill="#94a3b8" fontSize="9" textAnchor="end" fontFamily="monospace">$150k</text>
-              <text x="30" y="84" fill="#94a3b8" fontSize="9" textAnchor="end" fontFamily="monospace">$100k</text>
-              <text x="30" y="144" fill="#94a3b8" fontSize="9" textAnchor="end" fontFamily="monospace">$50k</text>
-              <text x="30" y="204" fill="#94a3b8" fontSize="9" textAnchor="end" fontFamily="monospace">$0</text>
+              <text x="30" y="24" fill="#94a3b8" fontSize="9" textAnchor="end" fontFamily="monospace">₹1.2Cr</text>
+              <text x="30" y="84" fill="#94a3b8" fontSize="9" textAnchor="end" fontFamily="monospace">₹80L</text>
+              <text x="30" y="144" fill="#94a3b8" fontSize="9" textAnchor="end" fontFamily="monospace">₹40L</text>
+              <text x="30" y="204" fill="#94a3b8" fontSize="9" textAnchor="end" fontFamily="monospace">₹0</text>
 
-              {/* Area Under Curve: Subscription Revenue (Jan: 50k, Feb: 65k, Mar: 90k, Apr: 110k, May: 135k, Jun: 145k)
-                  Map to SVG coordinates: 
-                  X: 55, 155, 255, 355, 455, 555
-                  Y: 200 - (Value/150000)*180 
-                  Y-values: 50k->140, 65k->122, 90k->92, 110k->68, 135k->38, 145k->26
-              */}
+              {/* Colorful Gradient Fills for Area Under Curve */}
               <path 
                 d="M 55 200 L 55 140 L 155 122 L 255 92 L 355 68 L 455 38 L 555 26 L 555 200 Z" 
-                fill="url(#revGrad)" 
+                fill="url(#brandRevGrad)" 
                 opacity="0.15"
               />
               <path 
                 d="M 55 140 L 155 122 L 255 92 L 355 68 L 455 38 L 555 26" 
                 fill="none" 
-                stroke="#6366f1" 
+                stroke="#0052FF" 
                 strokeWidth="3.5" 
                 strokeLinecap="round" 
                 strokeLinejoin="round" 
               />
 
-              {/* Expense Line (AWS/GCP nodes: flat around $15k - $20k)
-                  Y-values: 12k->185, 14k->183, 15k->182, 18k->178, 20k->176, 19k->177
-              */}
+              {/* Expense Line: Colored with vibrant cyan dashes */}
               <path 
                 d="M 55 185 L 155 183 L 255 182 L 355 178 L 455 176 L 555 177" 
                 fill="none" 
-                stroke="#f59e0b" 
+                stroke="#00D8F6" 
                 strokeWidth="2.5" 
                 strokeDasharray="4 2" 
                 strokeLinecap="round" 
@@ -254,86 +249,89 @@ export default function FounderDashboard({ state, onRefresh, brandColor }: Found
 
               {/* Gradient definition */}
               <defs>
-                <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#6366f1" />
-                  <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+                <linearGradient id="brandRevGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#0052FF" />
+                  <stop offset="100%" stopColor="#00D8F6" stopOpacity="0" />
                 </linearGradient>
               </defs>
 
               {/* Interactive nodes */}
-              <circle cx="555" cy="26" r="5" fill="#4f46e5" stroke="#ffffff" strokeWidth="2" />
-              <circle cx="455" cy="38" r="4" fill="#4f46e5" stroke="#ffffff" strokeWidth="1.5" />
-              <circle cx="355" cy="68" r="4" fill="#4f46e5" stroke="#ffffff" strokeWidth="1.5" />
+              <circle cx="555" cy="26" r="6" fill="#0052FF" stroke="#ffffff" strokeWidth="2" />
+              <circle cx="455" cy="38" r="4.5" fill="#0052FF" stroke="#ffffff" strokeWidth="1.5" />
+              <circle cx="355" cy="68" r="4.5" fill="#0052FF" stroke="#ffffff" strokeWidth="1.5" />
             </svg>
           </div>
         </div>
 
         {/* Corporate Slices / Allocation - (1/3 width) */}
-        <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xs flex flex-col justify-between">
+        <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xs flex flex-col justify-between relative overflow-hidden">
           <div>
-            <h4 className="text-sm font-bold text-slate-800">Operational Breakdown</h4>
+            <h4 className="text-sm font-bold text-[#04153F]">Operational Breakdown</h4>
             <p className="text-xs text-slate-400">Resources and team distribution</p>
 
             <div className="space-y-4 mt-6">
               {/* Item 1 */}
               <div>
                 <div className="flex justify-between text-xs text-slate-600 mb-1">
-                  <span>Software Engineers</span>
-                  <span className="font-mono font-medium">3 employees</span>
+                  <span className="font-medium">Software Engineers</span>
+                  <span className="font-mono font-bold text-[#0052FF]">3 employees</span>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                  <div className="bg-indigo-500 h-full rounded-full" style={{ width: '60%' }} />
+                  <div className="bg-[#0052FF] h-full rounded-full" style={{ width: '60%' }} />
                 </div>
               </div>
 
               {/* Item 2 */}
               <div>
                 <div className="flex justify-between text-xs text-slate-600 mb-1">
-                  <span>Sales & Account Directors</span>
-                  <span className="font-mono font-medium">1 employee</span>
+                  <span className="font-medium">Sales & Account Directors</span>
+                  <span className="font-mono font-bold text-[#00D8F6]">1 employee</span>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                  <div className="bg-emerald-500 h-full rounded-full" style={{ width: '20%' }} />
+                  <div className="bg-[#00D8F6] h-full rounded-full" style={{ width: '20%' }} />
                 </div>
               </div>
 
               {/* Item 3 */}
               <div>
                 <div className="flex justify-between text-xs text-slate-600 mb-1">
-                  <span>Finance Controllers</span>
-                  <span className="font-mono font-medium">1 employee</span>
+                  <span className="font-medium">Finance Controllers</span>
+                  <span className="font-mono font-bold text-[#04153F]">1 employee</span>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                  <div className="bg-amber-500 h-full rounded-full" style={{ width: '20%' }} />
+                  <div className="bg-[#04153F] h-full rounded-full" style={{ width: '20%' }} />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-indigo-50/50 rounded-lg p-3.5 border border-indigo-50 flex items-start gap-2.5 mt-6">
-            <ShieldCheck className="h-4.5 w-4.5 text-indigo-600 shrink-0 mt-0.5" />
-            <div className="text-[11px] text-indigo-950 leading-relaxed">
-              <strong>SaaS Health Verified:</strong> Tenant data isolate rules are checked. Zero compliance friction detected across standard scopes.
+          <div className="bg-[#0052FF]/5 rounded-lg p-3.5 border border-[#0052FF]/10 flex items-start gap-2.5 mt-6">
+            <ShieldCheck className="h-4.5 w-4.5 text-[#0052FF] shrink-0 mt-0.5" />
+            <div className="text-[11px] text-[#04153F] leading-relaxed">
+              <strong>SaaS Health Verified:</strong> Tenant data isolation rules are verified. Zero compliance friction detected across active scopes.
             </div>
           </div>
         </div>
       </div>
 
       {/* Integrated AI Financial Advisor Console */}
-      <div className="bg-gradient-to-br from-indigo-950 to-slate-900 text-white rounded-xl border border-indigo-900 shadow-lg p-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-indigo-900 pb-5">
+      <div className="bg-gradient-to-br from-[#04153F] to-[#0052FF] text-white rounded-xl border border-[#0052FF]/30 shadow-lg p-6 relative overflow-hidden">
+        {/* Colorful neon graphic circles for background interest */}
+        <div className="absolute top-0 right-0 w-48 h-48 bg-[#00D8F6]/20 rounded-full blur-2xl pointer-events-none animate-pulse-soft" />
+        
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-white/15 pb-5 relative z-10">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-indigo-400">
+            <div className="p-2.5 bg-white/10 border border-white/20 rounded-xl text-[#00D8F6]">
               <Sparkles className="h-6 w-6 animate-pulse" />
             </div>
             <div>
-              <h3 className="font-bold text-base flex items-center gap-2">
-                NeuNet AI Financial Advisor
-                <span className="text-[10px] uppercase font-mono tracking-widest bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">
+              <h3 className="font-bold text-base flex items-center gap-2 text-white">
+                UP arrow Intelligent Advisor
+                <span className="text-[10px] uppercase font-mono tracking-widest bg-[#00D8F6]/20 text-[#00D8F6] px-2 py-0.5 rounded font-extrabold">
                   Active
                 </span>
               </h3>
-              <p className="text-xs text-slate-300 mt-0.5">
+              <p className="text-xs text-slate-200 mt-0.5">
                 Utilizes the secure server-side Gemini intelligence layer to audit corporate ledgers, budgets, and cash balances.
               </p>
             </div>
@@ -342,17 +340,17 @@ export default function FounderDashboard({ state, onRefresh, brandColor }: Found
             <button
               onClick={fetchAIInsights}
               disabled={loadingAI}
-              className="w-full md:w-auto px-5 py-2 text-xs font-semibold bg-white hover:bg-slate-100 text-indigo-950 rounded-lg transition-all flex items-center justify-center gap-2 shadow-sm disabled:opacity-50 cursor-pointer"
+              className="w-full md:w-auto px-5 py-2.5 text-xs font-bold bg-white hover:bg-slate-100 text-[#04153F] rounded-lg transition-all flex items-center justify-center gap-2 shadow-sm disabled:opacity-50 cursor-pointer"
             >
               {loadingAI ? (
                 <>
-                  <RefreshCw className="h-4 w-4 animate-spin" />
-                  Auditing Corporate State...
+                  <RefreshCw className="h-4 w-4 animate-spin text-[#0052FF]" />
+                  Auditing Ledger State...
                 </>
               ) : (
                 <>
-                  <Sparkles className="h-4 w-4 text-indigo-600" />
-                  Run AI Financial Audit
+                  <Sparkles className="h-4 w-4 text-[#0052FF]" />
+                  Run Brand Intelligence Audit
                 </>
               )}
             </button>
